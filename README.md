@@ -106,9 +106,28 @@ Revive-OS is the orchestration core — a multi-channel AI decision engine that 
 
 ---
 
-[![GitHub Stats](https://github-readme-stats.vercel.app/api?username=rajeevrajora77-lab&show_icons=true&theme=github_dark&hide_border=true&count_private=true&include_all_commits=true)](https://github.com/rajeevrajora77-lab)
-[![Top Languages](https://github-readme-stats.vercel.app/api/top-langs/?username=rajeevrajora77-lab&layout=compact&theme=github_dark&hide_border=true)](https://github.com/rajeevrajora77-lab)
-[![GitHub Streak](https://streak-stats.demolab.com?user=rajeevrajora77-lab&theme=github-dark-blue&hide_border=true)](https://github.com/rajeevrajora77-lab)
+<p align="left">
+  <img height="180em" src="https://github-readme-stats.vercel.app/api?username=rajeevrajora77-lab&show_icons=true&theme=github_dark&hide_border=true&count_private=true&include_all_commits=true&ring_color=58a6ff&title_color=58a6ff" />
+  <img height="180em" src="https://github-readme-stats.vercel.app/api/top-langs/?username=rajeevrajora77-lab&layout=compact&theme=github_dark&hide_border=true&langs_count=8" />
+</p>
+
+<p align="left">
+  <img src="https://streak-stats.demolab.com?user=rajeevrajora77-lab&theme=github-dark-blue&hide_border=true&date_format=j%20M%5B%20Y%5D" />
+</p>
+
+<p align="left">
+  <img src="https://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=rajeevrajora77-lab&theme=github_dark" />
+</p>
+
+<p align="left">
+  <img src="https://github-profile-summary-cards.vercel.app/api/cards/repos-per-language?username=rajeevrajora77-lab&theme=github_dark" />
+  <img src="https://github-profile-summary-cards.vercel.app/api/cards/most-commit-language?username=rajeevrajora77-lab&theme=github_dark" />
+</p>
+
+<p align="left">
+  <img src="https://github-profile-summary-cards.vercel.app/api/cards/stats?username=rajeevrajora77-lab&theme=github_dark" />
+  <img src="https://github-profile-summary-cards.vercel.app/api/cards/productive-time?username=rajeevrajora77-lab&theme=github_dark&utcOffset=5.5" />
+</p>
 
 ---
 
