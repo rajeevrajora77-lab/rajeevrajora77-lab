@@ -1,6 +1,8 @@
 <div align="center">
 
+<a href="https://rajora.live" target="_blank">
 <img src="./banner.svg" alt="Rajora AI" width="100%"/>
+</a>
 
 <br/>
 
@@ -28,7 +30,9 @@ We construct a unified AI platform across four layers: **AGI orchestration → i
 ## Platform Architecture
 
 <div align="center">
+<a href="https://rajora.live" target="_blank">
 <img src="./architecture.svg" alt="Rajora AI Architecture" width="100%"/>
+</a>
 </div>
 
 ---
