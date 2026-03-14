@@ -1,135 +1,215 @@
-# Er. Rajeev Rajora
+<div align="center">
 
-Founder & Principal Architect at **[Rajora AI](https://rajora.live)**
-— building AI infrastructure that operates at the layer below applications.
+<img src="./banner.svg" alt="Rajora AI" width="100%"/>
 
-Bengaluru · [rajora.live](https://rajora.live) · [rajeev@rajora.live](mailto:rajeev@rajora.live)
+<br/>
+
+[![Platform](https://img.shields.io/badge/Platform-rajora.live-0A0A2E?style=flat-square&logo=safari&logoColor=0077FF&labelColor=05050D)](https://rajora.live)
+[![India](https://img.shields.io/badge/Bengaluru%2C_Karnataka-India-FF9933?style=flat-square&logo=google-maps&logoColor=white&labelColor=05050D)](https://rajora.live)
+[![Email](https://img.shields.io/badge/rajeev%40rajora.live-Contact-0055CC?style=flat-square&logo=gmail&logoColor=white&labelColor=05050D)](mailto:rajeev@rajora.live)
+[![Claude](https://img.shields.io/badge/Anthropic-Claude-0D1117?style=flat-square&logoColor=00D4FF&labelColor=05050D)](https://anthropic.com)
+[![Python](https://img.shields.io/badge/Python-Core-0D1117?style=flat-square&logo=python&logoColor=3776AB&labelColor=05050D)](https://rajora.live)
+[![TypeScript](https://img.shields.io/badge/TypeScript-Frontend-0D1117?style=flat-square&logo=typescript&logoColor=3178C6&labelColor=05050D)](https://rajora.live)
+
+</div>
 
 ---
 
-## What Rajora AI Builds
+## Mission
 
-Revive-OS is the orchestration core — a multi-channel AI decision engine that routes intent, manages billing, and coordinates model serving across 9 scale tiers. Above it, AION acts as the desktop-native intelligence layer: a LangGraph agent running on FastAPI that controls the entire OS via natural language, routing requests through Claude, GPT, Gemini, or local Ollama depending on cost and capability. HopeSense-AI, WickerIndia, openlearn-ai, and finserve2india are vertical applications that consume this infrastructure — each domain-specific, each with its own data layer, but all sharing the same auth, rate-limiting, and model-serving primitives. The goal is a single AI infrastructure stack that any vertical business can deploy on, without rebuilding the same auth, billing, or inference plumbing from scratch.
+> **Rajora AI builds the shared infrastructure layer beneath domain-specific AI applications — so vertical builders never have to re-implement auth, billing, rate limiting, or model serving from scratch.**
+
+One stack. Every domain. No rebuilding the plumbing.
+
+We construct a unified AI platform across four layers: **AGI orchestration → interface agents → multi-channel routing → inference gateway**. Every vertical product we ship — healthcare, education, finance, commerce — runs on the same battle-tested primitives.
 
 ---
 
-## Ecosystem
+## Platform Architecture
 
-| Repository | What it does | Stack |
+<div align="center">
+<img src="./architecture.svg" alt="Rajora AI Architecture" width="100%"/>
+</div>
+
+---
+
+## Core Infrastructure
+
+### `Revive-OS` — AI Revenue Orchestration System
+The routing backbone. Manages intent across **Voice and WhatsApp** with a 9-tier scaling architecture, per-channel billing, and model serving coordination.
+
+- Multi-channel decision engine with session management
+- 9 scale tiers from prototype to enterprise traffic
+- Redis-backed state, circuit breakers, observability-first
+
+---
+
+### `AION ∞` — Agentic Intelligence Platform
+A governed, AGI-oriented AI platform. Routes requests dynamically across **Claude, GPT, Gemini, and local Ollama** based on cost and capability. Runs on the desktop as a full OS-control agent.
+
+- LangGraph agent graph for stateful multi-step reasoning
+- Playwright browser and OS automation
+- WebSocket streaming with Razorpay billing integration
+
+---
+
+### `rajora-slm-fine-tune-for-revive-os` — Inference & API Gateway
+The security and inference boundary for the entire platform. Current version: **v15.0.0**
+
+| Service | Port | Responsibility |
 |---|---|---|
-| [revive-os](https://github.com/rajeevrajora77-lab/revive-os) 🔒 | AI Revenue Orchestration System — multi-channel decision engine across Voice + WhatsApp. 9 scale tiers. | Python · FastAPI · Redis |
-| [Rajora.ai](https://github.com/rajeevrajora77-lab/Rajora.ai) 🔒 | AION ∞ — governed, agentic, AGI-oriented AI platform. Multi-platform. | Python |
-| [AION-v1](https://github.com/rajeevrajora77-lab/AION-v1) 🔒 | Real-time chat, intelligent search, voice interaction. Production-ready AI web application. | JavaScript |
-| [aion-bot](https://github.com/rajeevrajora77-lab/aion-bot) | Desktop AI agent. Controls entire OS via natural language — Claude, GPT, Gemini, Ollama. LangGraph agent graph, Playwright automation, WebSocket streaming, Razorpay billing. | Python · FastAPI · LangGraph |
-| [rajora-slm-fine-tune-for-revive-os](https://github.com/rajeevrajora77-lab/rajora-slm-fine-tune-for-revive-os) | Inference and API gateway — RS256 JWT, Redis Lua token bucket, per-service circuit breakers, Stripe billing, Mistral-7B + Phi-3 via Together AI, optional vLLM. | Python · Redis · PostgreSQL |
-| [HopeSense-AI](https://github.com/rajeevrajora77-lab/HopeSense-AI) 🔒 | Burnout detection platform — NLP, time-series ML, reinforcement learning, HIPAA-aligned. | Python · AWS |
-| [openlearn-ai](https://github.com/rajeevrajora77-lab/openlearn-ai) | Open-source AI learning platform for CBSE, UPSC, JEE, SSC. RAG pipeline (Qdrant + BAAI/bge-m3), Faster-Whisper STT, Coqui XTTS TTS, spaced repetition, COPPA-compliant. | Python · Next.js · FastAPI |
-| [WickerIndia](https://github.com/rajeevrajora77-lab/WickerIndia) | Full-stack e-commerce — product catalog, admin CMS, AWS S3 media, n8n webhook automation, Render deployment. | Python · FastAPI · MongoDB |
-| [finserve2india](https://github.com/rajeevrajora77-lab/finserve2india) 🔒 | Financial services platform built for the Indian market. | TypeScript |
-| [rajora-ai-institution-deploy](https://github.com/rajeevrajora77-lab/rajora-ai-institution-deploy) 🔒 | Institution deployment layer. | TypeScript |
-| [tool-app](https://github.com/rajeevrajora77-lab/tool-app) | Static SPA — AI & developer tools intelligence directory. JSON-driven database, multi-filter UI (category, segment, type, free-tier), no backend. | React · TypeScript · Vite |
-
-🔒 = Private repository
+| `auth_service` | :8001 | RS256 JWT · bcrypt |
+| `inference_service` | :8002 | Mistral-7B · Phi-3 · vLLM |
+| `billing_service` | :8003 | Stripe · Redis Lua rate limiting |
+| `user_service` | :8004 | PostgreSQL · session management |
+| `api_gateway` | Nginx | Circuit breakers · routing |
 
 ---
 
-## Architecture
+## Vertical Applications
 
-```
-┌─────────────────────────────────────────────────────────────────┐
-│                     AGI PLATFORM LAYER                          │
-│  Rajora.ai / AION ∞  [Python · Multi-platform · Governed AGI]  │
-└───────────────────────────┬─────────────────────────────────────┘
-                            │
-          ┌─────────────────┴──────────────────┐
-          │                                    │
-┌─────────▼──────────┐              ┌──────────▼──────────┐
-│    AION-v1         │              │    aion-bot          │
-│  Web AI App        │              │  Desktop AI Agent    │
-│  [JavaScript]      │              │  FastAPI :8000       │
-│  Real-time chat    │              │  LangGraph agent     │
-│  Voice · Search    │              │  Playwright browser  │
-└────────────────────┘              │  desktop_control     │
-                                    │  WebSocket /ws       │
-                                    └──────────┬───────────┘
-                                               │
-┌──────────────────────────────────────────────▼───────────────────┐
-│                  ORCHESTRATION LAYER — Revive-OS                  │
-│         Multi-channel (Voice + WhatsApp) · 9 scale tiers         │
-│                   [Python · FastAPI · Redis]                      │
-└──────────────────────────────────────────────┬───────────────────┘
-                                               │
-┌──────────────────────────────────────────────▼───────────────────┐
-│              INFERENCE & API GATEWAY                              │
-│        rajora-slm-fine-tune-for-revive-os  [v15.0.0]             │
-│                                                                   │
-│  auth_service :8001 │ inference_service :8002                    │
-│  billing_service :8003 │ user_service :8004                      │
-│  api_gateway (Nginx) │ ai_core │ scheduler_service               │
-│                                                                   │
-│  RS256 JWT · Redis Lua rate limit · Circuit breakers             │
-│  Together AI (Mistral-7B · Phi-3) · vLLM (optional GPU)         │
-│  Stripe billing · Qdrant vector DB · MinIO object storage        │
-└──────────────────────────────────────────────┬───────────────────┘
-                                               │
-          ┌────────────────┬──────────────────┬┴──────────────────┐
-          │                │                  │                   │
-┌─────────▼──────┐ ┌───────▼──────┐ ┌────────▼──────┐ ┌─────────▼──────┐
-│ HopeSense-AI🔒 │ │ WickerIndia  │ │ openlearn-ai  │ │finserve2india🔒│
-│ Burnout detect │ │ E-commerce   │ │ Exam prep AI  │ │ Finance · IN   │
-│ NLP · RL · AWS │ │ MongoDB · S3 │ │ RAG · STT·TTS │ │ TypeScript     │
-│                │ │ n8n webhooks │ │ COPPA · RabbitMQ│               │
-└────────────────┘ └──────────────┘ └───────────────┘ └────────────────┘
-```
+### `HopeSense-AI` 🔒
+**Domain:** Mental health and workplace burnout detection  
+**Why it exists:** Organizations lack early-warning systems for employee burnout before it becomes a crisis.  
+NLP pipeline + time-series ML + reinforcement learning feedback loop. HIPAA-aligned, AWS-deployed.
 
 ---
 
-## Stack
-
-**Core Languages** — Python · TypeScript · JavaScript · HCL · Shell
-
-**AI / ML** — LangGraph · vLLM · Together AI · OpenAI · Anthropic Claude
-              Google Gemini · Mistral-7B · Phi-3 · Ollama (local LLMs)
-              BAAI/bge-m3 embeddings · Faster-Whisper · Coqui XTTS
-
-**Backend** — FastAPI · Motor · PostgreSQL · MongoDB Atlas · Redis · RabbitMQ
-
-**Frontend** — React 18 · Next.js 14 · TypeScript · Tailwind CSS · Vite · shadcn/ui
-
-**Infrastructure** — AWS (EC2, S3, EB) · Docker · Kubernetes · Terraform
-                     Nginx · GitHub Actions · Vercel · Railway · Render
-
-**Security** — RS256 JWT · bcrypt · Redis Lua atomic rate limiting
-               Circuit breakers · Prometheus · Grafana · Trivy · Jaeger
-
-**Automation** — n8n · Playwright · Qdrant · MinIO
+### `openlearn-ai`
+**Domain:** AI-powered exam preparation — CBSE, UPSC, JEE, SSC  
+**Why it exists:** Quality exam prep in India is expensive and inaccessible for most students.  
+Full RAG pipeline (Qdrant + BAAI/bge-m3), Faster-Whisper STT, Coqui XTTS TTS, spaced repetition, COPPA-compliant.
 
 ---
 
-<p align="left">
-  <img height="180em" src="https://github-readme-stats.vercel.app/api?username=rajeevrajora77-lab&show_icons=true&theme=github_dark&hide_border=true&count_private=true&include_all_commits=true&ring_color=58a6ff&title_color=58a6ff" />
-  <img height="180em" src="https://github-readme-stats.vercel.app/api/top-langs/?username=rajeevrajora77-lab&layout=compact&theme=github_dark&hide_border=true&langs_count=8" />
-</p>
-
-<p align="left">
-  <img src="https://streak-stats.demolab.com?user=rajeevrajora77-lab&theme=github-dark-blue&hide_border=true&date_format=j%20M%5B%20Y%5D" />
-</p>
-
-<p align="left">
-  <img src="https://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=rajeevrajora77-lab&theme=github_dark" />
-</p>
-
-<p align="left">
-  <img src="https://github-profile-summary-cards.vercel.app/api/cards/repos-per-language?username=rajeevrajora77-lab&theme=github_dark" />
-  <img src="https://github-profile-summary-cards.vercel.app/api/cards/most-commit-language?username=rajeevrajora77-lab&theme=github_dark" />
-</p>
-
-<p align="left">
-  <img src="https://github-profile-summary-cards.vercel.app/api/cards/stats?username=rajeevrajora77-lab&theme=github_dark" />
-  <img src="https://github-profile-summary-cards.vercel.app/api/cards/productive-time?username=rajeevrajora77-lab&theme=github_dark&utcOffset=5.5" />
-</p>
+### `WickerIndia`
+**Domain:** E-commerce  
+Full-stack product catalog, admin CMS, AWS S3 media handling, n8n webhook automation, deployed on Render.
 
 ---
 
-**Rajora AI** · Bengaluru, Karnataka, India
-[rajora.live](https://rajora.live) · [rajeev@rajora.live](mailto:rajeev@rajora.live)
+### `finserve2india` 🔒
+**Domain:** Financial services for the Indian market  
+Compliance-aware, built for Indian regulatory and user context. TypeScript full-stack.
+
+---
+
+## Repository Index
+
+| Repository | Description | Stack | Access |
+|---|---|---|---|
+| `revive-os` | AI Revenue Orchestration — Voice + WhatsApp, 9 scale tiers | Python · FastAPI · Redis | 🔒 |
+| `Rajora.ai` | AION ∞ — governed, agentic, multi-platform AGI | Python | 🔒 |
+| `AION-v1` | Real-time chat · voice · intelligent search web app | JavaScript | 🔒 |
+| `aion-bot` | Desktop AI agent — OS control, LangGraph, Playwright | Python · FastAPI | Public |
+| `rajora-slm-fine-tune-for-revive-os` | Inference gateway — JWT, rate limiting, SLM models | Python · Redis · PostgreSQL | Public |
+| `HopeSense-AI` | Burnout detection — NLP, RL, HIPAA-aligned | Python · AWS | 🔒 |
+| `openlearn-ai` | AI exam prep — RAG, STT, TTS, spaced repetition | Python · Next.js · FastAPI | Public |
+| `WickerIndia` | E-commerce — catalog, CMS, S3, n8n automation | Python · FastAPI · MongoDB | Public |
+| `finserve2india` | Financial services — Indian market | TypeScript | 🔒 |
+| `rajora-ai-institution-deploy` | Institution deployment layer | TypeScript | 🔒 |
+| `tool-app` | AI tools directory — JSON-driven, multi-filter SPA | React · TypeScript · Vite | Public |
+
+---
+
+## Technology Stack
+
+<table>
+<tr>
+<td valign="top" width="50%">
+
+**Languages**
+
+![Python](https://img.shields.io/badge/-Python-05050D?style=flat-square&logo=python)
+![TypeScript](https://img.shields.io/badge/-TypeScript-05050D?style=flat-square&logo=typescript)
+![JavaScript](https://img.shields.io/badge/-JavaScript-05050D?style=flat-square&logo=javascript)
+![Shell](https://img.shields.io/badge/-Shell-05050D?style=flat-square&logo=gnubash)
+![HCL](https://img.shields.io/badge/-HCL-05050D?style=flat-square&logo=terraform)
+
+**AI / ML**
+
+![LangGraph](https://img.shields.io/badge/-LangGraph-05050D?style=flat-square)
+![Claude](https://img.shields.io/badge/-Anthropic_Claude-05050D?style=flat-square)
+![OpenAI](https://img.shields.io/badge/-OpenAI-05050D?style=flat-square&logo=openai)
+![Gemini](https://img.shields.io/badge/-Google_Gemini-05050D?style=flat-square&logo=google)
+![Ollama](https://img.shields.io/badge/-Ollama-05050D?style=flat-square)
+![vLLM](https://img.shields.io/badge/-vLLM-05050D?style=flat-square)
+![Qdrant](https://img.shields.io/badge/-Qdrant-05050D?style=flat-square)
+
+**Backend**
+
+![FastAPI](https://img.shields.io/badge/-FastAPI-05050D?style=flat-square&logo=fastapi)
+![PostgreSQL](https://img.shields.io/badge/-PostgreSQL-05050D?style=flat-square&logo=postgresql)
+![MongoDB](https://img.shields.io/badge/-MongoDB-05050D?style=flat-square&logo=mongodb)
+![Redis](https://img.shields.io/badge/-Redis-05050D?style=flat-square&logo=redis)
+![RabbitMQ](https://img.shields.io/badge/-RabbitMQ-05050D?style=flat-square&logo=rabbitmq)
+
+</td>
+<td valign="top" width="50%">
+
+**Frontend**
+
+![React](https://img.shields.io/badge/-React_18-05050D?style=flat-square&logo=react)
+![Next.js](https://img.shields.io/badge/-Next.js_14-05050D?style=flat-square&logo=next.js)
+![Tailwind](https://img.shields.io/badge/-Tailwind_CSS-05050D?style=flat-square&logo=tailwindcss)
+![Vite](https://img.shields.io/badge/-Vite-05050D?style=flat-square&logo=vite)
+
+**Infrastructure**
+
+![AWS](https://img.shields.io/badge/-AWS-05050D?style=flat-square&logo=amazon-aws)
+![Docker](https://img.shields.io/badge/-Docker-05050D?style=flat-square&logo=docker)
+![Kubernetes](https://img.shields.io/badge/-Kubernetes-05050D?style=flat-square&logo=kubernetes)
+![Terraform](https://img.shields.io/badge/-Terraform-05050D?style=flat-square&logo=terraform)
+![GitHub Actions](https://img.shields.io/badge/-GitHub_Actions-05050D?style=flat-square&logo=github-actions)
+![Nginx](https://img.shields.io/badge/-Nginx-05050D?style=flat-square&logo=nginx)
+
+**Security & Observability**
+
+![JWT](https://img.shields.io/badge/-RS256_JWT-05050D?style=flat-square)
+![Prometheus](https://img.shields.io/badge/-Prometheus-05050D?style=flat-square&logo=prometheus)
+![Grafana](https://img.shields.io/badge/-Grafana-05050D?style=flat-square&logo=grafana)
+![Jaeger](https://img.shields.io/badge/-Jaeger-05050D?style=flat-square)
+![Trivy](https://img.shields.io/badge/-Trivy-05050D?style=flat-square)
+
+**Automation & Data**
+
+![n8n](https://img.shields.io/badge/-n8n-05050D?style=flat-square&logo=n8n)
+![Playwright](https://img.shields.io/badge/-Playwright-05050D?style=flat-square&logo=playwright)
+![MinIO](https://img.shields.io/badge/-MinIO-05050D?style=flat-square)
+
+</td>
+</tr>
+</table>
+
+---
+
+## Ecosystem Links
+
+| | Platform | URL |
+|---|---|---|
+| 🌐 | Official Platform | [rajora.live](https://rajora.live) |
+| 🇮🇳 | Rajora India | [rajora.co.in](https://rajora.co.in) |
+| 🛒 | Wicker India | [wicker.rajora.live](https://wicker.rajora.live) |
+| 💰 | FinServe2India | [finserve2india.com](https://www.finserve2india.com) |
+| 🛠️ | AI Tools Guide | [toolsguidebyrajoraai.netlify.app](https://toolsguidebyrajoraai.netlify.app) |
+| 🔗 | Rajora Portal | [rajora.netlify.app](https://rajora.netlify.app) |
+
+---
+
+## Founder
+
+**Er. Rajeev Rajora** — Founder & Principal Architect, Rajora AI
+
+Building the infrastructure layer beneath AI applications — so every vertical can deploy intelligence without rebuilding the foundation.
+
+📍 Bengaluru, Karnataka, India &nbsp;·&nbsp; 🌐 [rajora.live](https://rajora.live) &nbsp;·&nbsp; ✉️ [rajeev@rajora.live](mailto:rajeev@rajora.live)
+
+---
+
+<div align="center">
+
+**Rajora AI** &nbsp;·&nbsp; Bengaluru, Karnataka, India
+
+*AI infrastructure for the next generation of vertical applications.*
+
+</div>
