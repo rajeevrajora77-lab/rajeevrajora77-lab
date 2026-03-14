@@ -1,6 +1,8 @@
 <div align="center">
 
+<a href="https://rajora.live" target="_blank">
 <img src="./banner.svg" alt="Rajora AI" width="100%"/>
+</a>
 
 <br/>
 
@@ -41,7 +43,9 @@ Every product we ship — from mental health analytics to e-commerce automation 
 ## Platform Architecture
 
 <div align="center">
+<a href="https://rajora.live" target="_blank">
 <img src="./architecture.svg" alt="Rajora AI Platform Architecture" width="100%"/>
+</a>
 </div>
 
 ---
