@@ -1,100 +1,377 @@
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1200 280" width="1200" height="280">
   <defs>
-    <pattern id="dots" x="0" y="0" width="24" height="24" patternUnits="userSpaceOnUse">
-      <circle cx="1.5" cy="1.5" r="1" fill="#0055FF" opacity="0.18"/>
-    </pattern>
+
+    <!-- Background gradient -->
     <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#05050D"/>
-      <stop offset="100%" style="stop-color:#080B1A"/>
+      <stop offset="0%" style="stop-color:#03030A"/>
+      <stop offset="50%" style="stop-color:#060818"/>
+      <stop offset="100%" style="stop-color:#04040F"/>
     </linearGradient>
+
+    <!-- Blue glow gradient (center bloom) -->
+    <radialGradient id="bloom" cx="50%" cy="50%" r="55%">
+      <stop offset="0%" style="stop-color:#0044CC;stop-opacity:0.18"/>
+      <stop offset="60%" style="stop-color:#0022AA;stop-opacity:0.06"/>
+      <stop offset="100%" style="stop-color:#000000;stop-opacity:0"/>
+    </radialGradient>
+
+    <!-- Accent line gradient -->
     <linearGradient id="lineGrad" x1="0%" y1="0%" x2="100%" y2="0%">
       <stop offset="0%" style="stop-color:#0055FF;stop-opacity:0"/>
       <stop offset="30%" style="stop-color:#0055FF;stop-opacity:1"/>
-      <stop offset="70%" style="stop-color:#0077FF;stop-opacity:1"/>
-      <stop offset="100%" style="stop-color:#0077FF;stop-opacity:0"/>
+      <stop offset="70%" style="stop-color:#0088FF;stop-opacity:1"/>
+      <stop offset="100%" style="stop-color:#0088FF;stop-opacity:0"/>
     </linearGradient>
-    <linearGradient id="glowGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" style="stop-color:#0055FF;stop-opacity:0"/>
-      <stop offset="50%" style="stop-color:#0055FF;stop-opacity:0.12"/>
-      <stop offset="100%" style="stop-color:#0055FF;stop-opacity:0"/>
+
+    <!-- Scan line gradient -->
+    <linearGradient id="scanGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#0066FF;stop-opacity:0"/>
+      <stop offset="20%" style="stop-color:#0066FF;stop-opacity:0.6"/>
+      <stop offset="50%" style="stop-color:#00AAFF;stop-opacity:0.9"/>
+      <stop offset="80%" style="stop-color:#0066FF;stop-opacity:0.6"/>
+      <stop offset="100%" style="stop-color:#0066FF;stop-opacity:0"/>
     </linearGradient>
-    <filter id="glow">
-      <feGaussianBlur stdDeviation="3" result="blur"/>
+
+    <!-- Node glow filter -->
+    <filter id="nodeGlow" x="-100%" y="-100%" width="300%" height="300%">
+      <feGaussianBlur stdDeviation="4" result="blur"/>
       <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
     </filter>
+
+    <!-- Text glow filter -->
+    <filter id="textGlow" x="-20%" y="-40%" width="140%" height="180%">
+      <feGaussianBlur stdDeviation="6" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+
+    <!-- Soft glow for status dot -->
+    <filter id="dotGlow">
+      <feGaussianBlur stdDeviation="2.5" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+
+    <!-- Clip path -->
+    <clipPath id="bounds">
+      <rect width="1200" height="280"/>
+    </clipPath>
+
+    <style>
+      /* ── Scan line sweep ── */
+      @keyframes scanSweep {
+        0%   { transform: translateX(-1200px); opacity: 0; }
+        5%   { opacity: 1; }
+        95%  { opacity: 1; }
+        100% { transform: translateX(1200px); opacity: 0; }
+      }
+      .scan-line {
+        animation: scanSweep 5s ease-in-out infinite;
+        animation-delay: 1s;
+      }
+
+      /* ── Node pulse ── */
+      @keyframes nodePulse {
+        0%, 100% { opacity: 0.35; r: 3; }
+        50%       { opacity: 1;    r: 5; }
+      }
+      @keyframes nodePulse2 {
+        0%, 100% { opacity: 0.2; r: 2.5; }
+        50%       { opacity: 0.9; r: 4.5; }
+      }
+      @keyframes nodePulse3 {
+        0%, 100% { opacity: 0.5; r: 3.5; }
+        50%       { opacity: 1;   r: 5.5; }
+      }
+
+      /* ── Data packet travel along edges ── */
+      @keyframes packetA {
+        0%   { offset-distance: 0%;   opacity: 0; }
+        8%   { opacity: 1; }
+        92%  { opacity: 1; }
+        100% { offset-distance: 100%; opacity: 0; }
+      }
+      @keyframes packetB {
+        0%   { offset-distance: 0%;   opacity: 0; }
+        10%  { opacity: 0.8; }
+        90%  { opacity: 0.8; }
+        100% { offset-distance: 100%; opacity: 0; }
+      }
+
+      /* ── Edge shimmer ── */
+      @keyframes edgeFade {
+        0%, 100% { opacity: 0.08; }
+        50%       { opacity: 0.28; }
+      }
+      @keyframes edgeFade2 {
+        0%, 100% { opacity: 0.12; }
+        50%       { opacity: 0.35; }
+      }
+
+      /* ── Status dot blink ── */
+      @keyframes statusBlink {
+        0%, 90%, 100% { opacity: 1; }
+        95%            { opacity: 0.2; }
+      }
+      .status-dot { animation: statusBlink 3s ease-in-out infinite; }
+
+      /* ── Top bloom breathe ── */
+      @keyframes bloomBreathe {
+        0%, 100% { opacity: 0.7; }
+        50%       { opacity: 1; }
+      }
+      .bloom { animation: bloomBreathe 6s ease-in-out infinite; }
+
+      /* ── Ticker scrolling text ── */
+      @keyframes tickerScroll {
+        0%   { transform: translateX(0); }
+        100% { transform: translateX(-50%); }
+      }
+      .ticker-text { animation: tickerScroll 28s linear infinite; }
+
+      /* Node animations assigned individually */
+      .n1  { animation: nodePulse  2.8s ease-in-out infinite; animation-delay: 0s; }
+      .n2  { animation: nodePulse2 3.4s ease-in-out infinite; animation-delay: 0.5s; }
+      .n3  { animation: nodePulse  3.1s ease-in-out infinite; animation-delay: 1.0s; }
+      .n4  { animation: nodePulse3 2.6s ease-in-out infinite; animation-delay: 1.5s; }
+      .n5  { animation: nodePulse2 3.8s ease-in-out infinite; animation-delay: 0.3s; }
+      .n6  { animation: nodePulse  2.9s ease-in-out infinite; animation-delay: 0.8s; }
+      .n7  { animation: nodePulse3 3.3s ease-in-out infinite; animation-delay: 1.2s; }
+      .n8  { animation: nodePulse2 2.7s ease-in-out infinite; animation-delay: 0.6s; }
+      .n9  { animation: nodePulse  3.6s ease-in-out infinite; animation-delay: 1.8s; }
+      .n10 { animation: nodePulse3 3.0s ease-in-out infinite; animation-delay: 0.2s; }
+      .n11 { animation: nodePulse2 2.5s ease-in-out infinite; animation-delay: 1.4s; }
+      .n12 { animation: nodePulse  3.9s ease-in-out infinite; animation-delay: 0.9s; }
+      .n13 { animation: nodePulse3 2.8s ease-in-out infinite; animation-delay: 1.7s; }
+      .n14 { animation: nodePulse2 3.2s ease-in-out infinite; animation-delay: 0.4s; }
+      .n15 { animation: nodePulse  3.5s ease-in-out infinite; animation-delay: 1.1s; }
+      .n16 { animation: nodePulse3 2.6s ease-in-out infinite; animation-delay: 1.9s; }
+      .n17 { animation: nodePulse2 3.7s ease-in-out infinite; animation-delay: 0.7s; }
+      .n18 { animation: nodePulse  3.0s ease-in-out infinite; animation-delay: 1.6s; }
+      .n19 { animation: nodePulse3 2.9s ease-in-out infinite; animation-delay: 0.1s; }
+      .n20 { animation: nodePulse2 3.4s ease-in-out infinite; animation-delay: 1.3s; }
+
+      /* Edge animations */
+      .e1  { animation: edgeFade  3.0s ease-in-out infinite; animation-delay: 0.2s; }
+      .e2  { animation: edgeFade2 3.6s ease-in-out infinite; animation-delay: 0.8s; }
+      .e3  { animation: edgeFade  2.8s ease-in-out infinite; animation-delay: 1.4s; }
+      .e4  { animation: edgeFade2 3.2s ease-in-out infinite; animation-delay: 0.5s; }
+      .e5  { animation: edgeFade  4.0s ease-in-out infinite; animation-delay: 1.0s; }
+      .e6  { animation: edgeFade2 3.4s ease-in-out infinite; animation-delay: 1.6s; }
+      .e7  { animation: edgeFade  2.9s ease-in-out infinite; animation-delay: 0.3s; }
+      .e8  { animation: edgeFade2 3.8s ease-in-out infinite; animation-delay: 1.2s; }
+      .e9  { animation: edgeFade  3.1s ease-in-out infinite; animation-delay: 0.7s; }
+      .e10 { animation: edgeFade2 2.7s ease-in-out infinite; animation-delay: 1.9s; }
+      .e11 { animation: edgeFade  3.5s ease-in-out infinite; animation-delay: 0.4s; }
+      .e12 { animation: edgeFade2 3.0s ease-in-out infinite; animation-delay: 1.1s; }
+    </style>
   </defs>
 
   <a xlink:href="https://rajora.live" href="https://rajora.live" target="_blank">
+    <g clip-path="url(#bounds)">
 
-    <!-- Background -->
-    <rect width="1200" height="280" fill="url(#bgGrad)"/>
-    <rect width="1200" height="280" fill="url(#dots)"/>
+      <!-- ═══════════════════════════════════════════════ -->
+      <!-- BASE BACKGROUND                                  -->
+      <!-- ═══════════════════════════════════════════════ -->
+      <rect width="1200" height="280" fill="url(#bgGrad)"/>
 
-    <!-- Ambient glow center -->
-    <ellipse cx="600" cy="140" rx="480" ry="120" fill="url(#glowGrad)"/>
+      <!-- ═══════════════════════════════════════════════ -->
+      <!-- GRID LAYER — subtle orthogonal grid              -->
+      <!-- ═══════════════════════════════════════════════ -->
+      <!-- Horizontal lines -->
+      <line x1="0" y1="35"  x2="1200" y2="35"  stroke="#0033AA" stroke-width="0.3" opacity="0.25"/>
+      <line x1="0" y1="70"  x2="1200" y2="70"  stroke="#0033AA" stroke-width="0.3" opacity="0.25"/>
+      <line x1="0" y1="105" x2="1200" y2="105" stroke="#0033AA" stroke-width="0.3" opacity="0.25"/>
+      <line x1="0" y1="140" x2="1200" y2="140" stroke="#0033AA" stroke-width="0.3" opacity="0.18"/>
+      <line x1="0" y1="175" x2="1200" y2="175" stroke="#0033AA" stroke-width="0.3" opacity="0.25"/>
+      <line x1="0" y1="210" x2="1200" y2="210" stroke="#0033AA" stroke-width="0.3" opacity="0.25"/>
+      <line x1="0" y1="245" x2="1200" y2="245" stroke="#0033AA" stroke-width="0.3" opacity="0.25"/>
+      <!-- Vertical lines -->
+      <line x1="80"  y1="0" x2="80"  y2="280" stroke="#0033AA" stroke-width="0.3" opacity="0.2"/>
+      <line x1="160" y1="0" x2="160" y2="280" stroke="#0033AA" stroke-width="0.3" opacity="0.2"/>
+      <line x1="240" y1="0" x2="240" y2="280" stroke="#0033AA" stroke-width="0.3" opacity="0.2"/>
+      <line x1="320" y1="0" x2="320" y2="280" stroke="#0033AA" stroke-width="0.3" opacity="0.2"/>
+      <line x1="400" y1="0" x2="400" y2="280" stroke="#0033AA" stroke-width="0.3" opacity="0.2"/>
+      <line x1="480" y1="0" x2="480" y2="280" stroke="#0033AA" stroke-width="0.3" opacity="0.2"/>
+      <line x1="560" y1="0" x2="560" y2="280" stroke="#0033AA" stroke-width="0.3" opacity="0.15"/>
+      <line x1="640" y1="0" x2="640" y2="280" stroke="#0033AA" stroke-width="0.3" opacity="0.15"/>
+      <line x1="720" y1="0" x2="720" y2="280" stroke="#0033AA" stroke-width="0.3" opacity="0.2"/>
+      <line x1="800" y1="0" x2="800" y2="280" stroke="#0033AA" stroke-width="0.3" opacity="0.2"/>
+      <line x1="880" y1="0" x2="880" y2="280" stroke="#0033AA" stroke-width="0.3" opacity="0.2"/>
+      <line x1="960" y1="0" x2="960" y2="280" stroke="#0033AA" stroke-width="0.3" opacity="0.2"/>
+      <line x1="1040" y1="0" x2="1040" y2="280" stroke="#0033AA" stroke-width="0.3" opacity="0.2"/>
+      <line x1="1120" y1="0" x2="1120" y2="280" stroke="#0033AA" stroke-width="0.3" opacity="0.2"/>
 
-    <!-- Top accent line -->
-    <rect x="0" y="0" width="1200" height="2" fill="url(#lineGrad)"/>
-    <!-- Bottom accent line -->
-    <rect x="0" y="278" width="1200" height="2" fill="url(#lineGrad)"/>
+      <!-- ═══════════════════════════════════════════════ -->
+      <!-- NEURAL NETWORK LAYER — LEFT CLUSTER              -->
+      <!-- ═══════════════════════════════════════════════ -->
+      <!-- Edges left cluster -->
+      <line x1="60" y1="55"  x2="130" y2="90"  stroke="#0044CC" stroke-width="1" class="e1"/>
+      <line x1="60" y1="55"  x2="110" y2="35"  stroke="#0044CC" stroke-width="1" class="e2"/>
+      <line x1="60" y1="55"  x2="145" y2="155" stroke="#0044CC" stroke-width="0.8" class="e3"/>
+      <line x1="110" y1="35" x2="200" y2="50"  stroke="#0044CC" stroke-width="1" class="e4"/>
+      <line x1="110" y1="35" x2="130" y2="90"  stroke="#0044CC" stroke-width="0.8" class="e5"/>
+      <line x1="130" y1="90" x2="200" y2="50"  stroke="#0055DD" stroke-width="1" class="e6"/>
+      <line x1="130" y1="90" x2="145" y2="155" stroke="#0044CC" stroke-width="1" class="e7"/>
+      <line x1="130" y1="90" x2="200" y2="120" stroke="#0044CC" stroke-width="1" class="e8"/>
+      <line x1="200" y1="50" x2="260" y2="70"  stroke="#0044CC" stroke-width="1" class="e9"/>
+      <line x1="200" y1="120" x2="260" y2="70" stroke="#0044CC" stroke-width="1" class="e10"/>
+      <line x1="200" y1="120" x2="260" y2="175" stroke="#0044CC" stroke-width="0.8" class="e11"/>
+      <line x1="145" y1="155" x2="200" y2="120" stroke="#0055DD" stroke-width="1" class="e12"/>
+      <line x1="145" y1="155" x2="200" y2="210" stroke="#0044CC" stroke-width="0.8" class="e1"/>
+      <line x1="60" y1="200" x2="145" y2="155" stroke="#0044CC" stroke-width="1" class="e3"/>
+      <line x1="60" y1="200" x2="130" y2="230" stroke="#0044CC" stroke-width="0.8" class="e5"/>
+      <line x1="130" y1="230" x2="200" y2="210" stroke="#0044CC" stroke-width="1" class="e7"/>
+      <line x1="200" y1="210" x2="260" y2="245" stroke="#0044CC" stroke-width="0.8" class="e9"/>
+      <line x1="200" y1="210" x2="260" y2="175" stroke="#0055DD" stroke-width="1" class="e2"/>
+      <line x1="260" y1="70" x2="260" y2="175" stroke="#0044CC" stroke-width="0.8" class="e4"/>
 
-    <!-- Left vertical bar -->
-    <rect x="48" y="40" width="3" height="200" fill="#0055FF" opacity="0.7"/>
-    <!-- Right vertical bar -->
-    <rect x="1149" y="40" width="3" height="200" fill="#0055FF" opacity="0.7"/>
+      <!-- Nodes left cluster -->
+      <circle cx="60"  cy="55"  r="3" fill="#0066FF" class="n1"  filter="url(#nodeGlow)"/>
+      <circle cx="110" cy="35"  r="2.5" fill="#0077FF" class="n2"  filter="url(#nodeGlow)"/>
+      <circle cx="130" cy="90"  r="4" fill="#0055FF" class="n3"  filter="url(#nodeGlow)"/>
+      <circle cx="200" cy="50"  r="3" fill="#0066FF" class="n4"  filter="url(#nodeGlow)"/>
+      <circle cx="145" cy="155" r="3.5" fill="#0077FF" class="n5"  filter="url(#nodeGlow)"/>
+      <circle cx="60"  cy="200" r="2.5" fill="#0055FF" class="n6"  filter="url(#nodeGlow)"/>
+      <circle cx="130" cy="230" r="3" fill="#0066FF" class="n7"  filter="url(#nodeGlow)"/>
+      <circle cx="200" cy="120" r="4" fill="#0055FF" class="n8"  filter="url(#nodeGlow)"/>
+      <circle cx="200" cy="210" r="3" fill="#0077FF" class="n9"  filter="url(#nodeGlow)"/>
+      <circle cx="260" cy="70"  r="3.5" fill="#0055FF" class="n10" filter="url(#nodeGlow)"/>
+      <circle cx="260" cy="175" r="3" fill="#0066FF" class="n11" filter="url(#nodeGlow)"/>
+      <circle cx="260" cy="245" r="2.5" fill="#0077FF" class="n12" filter="url(#nodeGlow)"/>
 
-    <!-- Corner brackets top-left -->
-    <polyline points="48,40 48,28 72,28" fill="none" stroke="#0055FF" stroke-width="1.5" opacity="0.8"/>
-    <!-- Corner brackets top-right -->
-    <polyline points="1152,40 1152,28 1128,28" fill="none" stroke="#0055FF" stroke-width="1.5" opacity="0.8"/>
-    <!-- Corner brackets bottom-left -->
-    <polyline points="48,240 48,252 72,252" fill="none" stroke="#0055FF" stroke-width="1.5" opacity="0.8"/>
-    <!-- Corner brackets bottom-right -->
-    <polyline points="1152,240 1152,252 1128,252" fill="none" stroke="#0055FF" stroke-width="1.5" opacity="0.8"/>
+      <!-- ═══════════════════════════════════════════════ -->
+      <!-- NEURAL NETWORK LAYER — RIGHT CLUSTER             -->
+      <!-- ═══════════════════════════════════════════════ -->
+      <!-- Edges right cluster -->
+      <line x1="940" y1="35"  x2="1010" y2="60"  stroke="#0044CC" stroke-width="1" class="e6"/>
+      <line x1="940" y1="35"  x2="980" y2="95"   stroke="#0044CC" stroke-width="0.8" class="e8"/>
+      <line x1="1010" y1="60" x2="1070" y2="45"  stroke="#0044CC" stroke-width="1" class="e10"/>
+      <line x1="1010" y1="60" x2="1060" y2="115" stroke="#0055DD" stroke-width="1" class="e12"/>
+      <line x1="1070" y1="45" x2="1140" y2="65"  stroke="#0044CC" stroke-width="1" class="e1"/>
+      <line x1="1070" y1="45" x2="1060" y2="115" stroke="#0044CC" stroke-width="0.8" class="e3"/>
+      <line x1="980" y1="95"  x2="1060" y2="115" stroke="#0044CC" stroke-width="1" class="e5"/>
+      <line x1="980" y1="95"  x2="1000" y2="165" stroke="#0055DD" stroke-width="1" class="e7"/>
+      <line x1="980" y1="95"  x2="940" y2="155"  stroke="#0044CC" stroke-width="0.8" class="e9"/>
+      <line x1="1060" y1="115" x2="1140" y2="65"  stroke="#0044CC" stroke-width="1" class="e11"/>
+      <line x1="1060" y1="115" x2="1000" y2="165" stroke="#0044CC" stroke-width="1" class="e2"/>
+      <line x1="1140" y1="65"  x2="1140" y2="155" stroke="#0044CC" stroke-width="0.8" class="e4"/>
+      <line x1="1140" y1="155" x2="1060" y2="200" stroke="#0044CC" stroke-width="1" class="e6"/>
+      <line x1="1000" y1="165" x2="1060" y2="200" stroke="#0055DD" stroke-width="1" class="e8"/>
+      <line x1="1000" y1="165" x2="940" y2="210"  stroke="#0044CC" stroke-width="1" class="e10"/>
+      <line x1="940" y1="155" x2="1000" y2="165" stroke="#0044CC" stroke-width="0.8" class="e12"/>
+      <line x1="940" y1="155" x2="940" y2="210"  stroke="#0044CC" stroke-width="1" class="e1"/>
+      <line x1="1060" y1="200" x2="1140" y2="210" stroke="#0044CC" stroke-width="0.8" class="e3"/>
+      <line x1="940" y1="210" x2="1000" y2="245"  stroke="#0044CC" stroke-width="1" class="e5"/>
+      <line x1="1060" y1="200" x2="1000" y2="245"  stroke="#0044CC" stroke-width="0.8" class="e7"/>
 
-    <!-- Status dot + label top-left -->
-    <circle cx="72" cy="38" r="4" fill="#00DD77" filter="url(#glow)"/>
-    <text x="84" y="43" font-family="'Courier New', 'Lucida Console', monospace" font-size="10" fill="#5070A0">SYSTEM ONLINE</text>
+      <!-- Nodes right cluster -->
+      <circle cx="940"  cy="35"  r="3" fill="#0066FF" class="n13" filter="url(#nodeGlow)"/>
+      <circle cx="1010" cy="60"  r="3.5" fill="#0077FF" class="n14" filter="url(#nodeGlow)"/>
+      <circle cx="1070" cy="45"  r="2.5" fill="#0055FF" class="n15" filter="url(#nodeGlow)"/>
+      <circle cx="1140" cy="65"  r="3" fill="#0066FF" class="n16" filter="url(#nodeGlow)"/>
+      <circle cx="980"  cy="95"  r="4" fill="#0055FF" class="n17" filter="url(#nodeGlow)"/>
+      <circle cx="1060" cy="115" r="3.5" fill="#0077FF" class="n18" filter="url(#nodeGlow)"/>
+      <circle cx="1140" cy="155" r="3" fill="#0055FF" class="n19" filter="url(#nodeGlow)"/>
+      <circle cx="940"  cy="155" r="2.5" fill="#0066FF" class="n20" filter="url(#nodeGlow)"/>
+      <circle cx="1000" cy="165" r="4" fill="#0077FF" class="n1"  filter="url(#nodeGlow)"/>
+      <circle cx="1060" cy="200" r="3" fill="#0055FF" class="n3"  filter="url(#nodeGlow)"/>
+      <circle cx="1140" cy="210" r="2.5" fill="#0066FF" class="n5"  filter="url(#nodeGlow)"/>
+      <circle cx="940"  cy="210" r="3.5" fill="#0077FF" class="n7"  filter="url(#nodeGlow)"/>
+      <circle cx="1000" cy="245" r="3" fill="#0055FF" class="n9"  filter="url(#nodeGlow)"/>
 
-    <!-- Top-right label -->
-    <text x="1128" y="43" font-family="'Courier New', 'Lucida Console', monospace" font-size="10" fill="#5070A0" text-anchor="end">BENGALURU · INDIA</text>
+      <!-- ═══════════════════════════════════════════════ -->
+      <!-- CENTER BLOOM                                     -->
+      <!-- ═══════════════════════════════════════════════ -->
+      <ellipse cx="600" cy="130" rx="460" ry="110" fill="url(#bloom)" class="bloom"/>
 
-    <!-- Main logo text -->
-    <text x="600" y="118" font-family="'Courier New', 'Lucida Console', monospace" font-size="52" font-weight="bold" fill="#FFFFFF" text-anchor="middle" letter-spacing="8" filter="url(#glow)">RAJORA AI</text>
+      <!-- ═══════════════════════════════════════════════ -->
+      <!-- ACCENT LINES                                     -->
+      <!-- ═══════════════════════════════════════════════ -->
+      <rect x="0" y="0" width="1200" height="2" fill="url(#lineGrad)"/>
+      <rect x="0" y="278" width="1200" height="2" fill="url(#lineGrad)"/>
 
-    <!-- Blue underline accent -->
-    <rect x="340" y="128" width="520" height="2" fill="url(#lineGrad)"/>
+      <!-- ═══════════════════════════════════════════════ -->
+      <!-- SCAN LINE SWEEP                                  -->
+      <!-- ═══════════════════════════════════════════════ -->
+      <rect x="-80" y="0" width="80" height="280" fill="url(#scanGrad)" opacity="0.12" class="scan-line"/>
 
-    <!-- Tagline -->
-    <text x="600" y="162" font-family="'Courier New', 'Lucida Console', monospace" font-size="14" fill="#0077FF" text-anchor="middle" letter-spacing="3">AI INFRASTRUCTURE · EVERY DOMAIN · ONE STACK</text>
+      <!-- ═══════════════════════════════════════════════ -->
+      <!-- CORNER BRACKETS                                  -->
+      <!-- ═══════════════════════════════════════════════ -->
+      <polyline points="52,42 52,26 72,26" fill="none" stroke="#0066FF" stroke-width="1.8" opacity="0.9"/>
+      <polyline points="1148,42 1148,26 1128,26" fill="none" stroke="#0066FF" stroke-width="1.8" opacity="0.9"/>
+      <polyline points="52,238 52,254 72,254" fill="none" stroke="#0066FF" stroke-width="1.8" opacity="0.9"/>
+      <polyline points="1148,238 1148,254 1128,254" fill="none" stroke="#0066FF" stroke-width="1.8" opacity="0.9"/>
 
-    <!-- Sub-tagline -->
-    <text x="600" y="192" font-family="'Courier New', 'Lucida Console', monospace" font-size="11" fill="#5070A0" text-anchor="middle" letter-spacing="1">AGI Platform  ·  Interface Agents  ·  Orchestration  ·  Inference Gateway</text>
+      <!-- ═══════════════════════════════════════════════ -->
+      <!-- STATUS BAR TOP                                   -->
+      <!-- ═══════════════════════════════════════════════ -->
+      <circle cx="72" cy="36" r="4.5" fill="#00DD77" class="status-dot" filter="url(#dotGlow)"/>
+      <text x="84" y="41" font-family="'Courier New', monospace" font-size="10" fill="#4488AA" letter-spacing="1">SYSTEM ONLINE</text>
+      <text x="1128" y="41" font-family="'Courier New', monospace" font-size="10" fill="#4488AA" text-anchor="end" letter-spacing="1">BENGALURU · INDIA</text>
 
-    <!-- Bottom pills -->
-    <rect x="298" y="216" width="80" height="22" rx="4" fill="none" stroke="#2A3A60" stroke-width="1"/>
-    <text x="338" y="231" font-family="'Courier New', 'Lucida Console', monospace" font-size="10" fill="#5070A0" text-anchor="middle">Python</text>
+      <!-- ═══════════════════════════════════════════════ -->
+      <!-- MAIN LOGO                                        -->
+      <!-- ═══════════════════════════════════════════════ -->
+      <text x="600" y="116" font-family="'Courier New', monospace" font-size="54" font-weight="bold" fill="#FFFFFF" text-anchor="middle" letter-spacing="10" filter="url(#textGlow)">RAJORA AI</text>
 
-    <rect x="388" y="216" width="90" height="22" rx="4" fill="none" stroke="#2A3A60" stroke-width="1"/>
-    <text x="433" y="231" font-family="'Courier New', 'Lucida Console', monospace" font-size="10" fill="#5070A0" text-anchor="middle">TypeScript</text>
+      <!-- Logo underline -->
+      <rect x="330" y="126" width="540" height="1.5" fill="url(#lineGrad)"/>
 
-    <rect x="488" y="216" width="80" height="22" rx="4" fill="none" stroke="#2A3A60" stroke-width="1"/>
-    <text x="528" y="231" font-family="'Courier New', 'Lucida Console', monospace" font-size="10" fill="#5070A0" text-anchor="middle">FastAPI</text>
+      <!-- ═══════════════════════════════════════════════ -->
+      <!-- TAGLINE                                          -->
+      <!-- ═══════════════════════════════════════════════ -->
+      <text x="600" y="158" font-family="'Courier New', monospace" font-size="13.5" fill="#0088FF" text-anchor="middle" letter-spacing="3.5">AI INFRASTRUCTURE · EVERY DOMAIN · ONE STACK</text>
 
-    <rect x="578" y="216" width="90" height="22" rx="4" fill="none" stroke="#0055FF" stroke-width="1" opacity="0.6"/>
-    <text x="623" y="231" font-family="'Courier New', 'Lucida Console', monospace" font-size="10" fill="#0077FF" text-anchor="middle">LangGraph</text>
+      <!-- Sub-tagline -->
+      <text x="600" y="185" font-family="'Courier New', monospace" font-size="10.5" fill="#3A5A80" text-anchor="middle" letter-spacing="1.5">AGI Platform  ·  Interface Agents  ·  Orchestration  ·  Inference Gateway</text>
 
-    <rect x="678" y="216" width="72" height="22" rx="4" fill="none" stroke="#2A3A60" stroke-width="1"/>
-    <text x="714" y="231" font-family="'Courier New', 'Lucida Console', monospace" font-size="10" fill="#5070A0" text-anchor="middle">Claude</text>
+      <!-- ═══════════════════════════════════════════════ -->
+      <!-- TECH PILLS ROW                                   -->
+      <!-- ═══════════════════════════════════════════════ -->
+      <rect x="300" y="204" width="76" height="20" rx="3" fill="none" stroke="#1A2A50" stroke-width="1"/>
+      <text x="338" y="218" font-family="'Courier New', monospace" font-size="9.5" fill="#4466AA" text-anchor="middle">Python</text>
 
-    <rect x="760" y="216" width="70" height="22" rx="4" fill="none" stroke="#2A3A60" stroke-width="1"/>
-    <text x="795" y="231" font-family="'Courier New', 'Lucida Console', monospace" font-size="10" fill="#5070A0" text-anchor="middle">Redis</text>
+      <rect x="386" y="204" width="88" height="20" rx="3" fill="none" stroke="#1A2A50" stroke-width="1"/>
+      <text x="430" y="218" font-family="'Courier New', monospace" font-size="9.5" fill="#4466AA" text-anchor="middle">TypeScript</text>
 
-    <rect x="840" y="216" width="64" height="22" rx="4" fill="none" stroke="#2A3A60" stroke-width="1"/>
-    <text x="872" y="231" font-family="'Courier New', 'Lucida Console', monospace" font-size="10" fill="#5070A0" text-anchor="middle">AWS</text>
+      <rect x="484" y="204" width="76" height="20" rx="3" fill="none" stroke="#1A2A50" stroke-width="1"/>
+      <text x="522" y="218" font-family="'Courier New', monospace" font-size="9.5" fill="#4466AA" text-anchor="middle">FastAPI</text>
 
-    <!-- Bottom domain -->
-    <text x="600" y="262" font-family="'Courier New', 'Lucida Console', monospace" font-size="11" fill="#2A3A60" text-anchor="middle">rajora.live</text>
+      <rect x="570" y="204" width="88" height="20" rx="3" fill="none" stroke="#0055DD" stroke-width="1" opacity="0.9"/>
+      <text x="614" y="218" font-family="'Courier New', monospace" font-size="9.5" fill="#0088FF" text-anchor="middle">LangGraph</text>
 
+      <rect x="668" y="204" width="68" height="20" rx="3" fill="none" stroke="#1A2A50" stroke-width="1"/>
+      <text x="702" y="218" font-family="'Courier New', monospace" font-size="9.5" fill="#4466AA" text-anchor="middle">Claude</text>
+
+      <rect x="746" y="204" width="62" height="20" rx="3" fill="none" stroke="#1A2A50" stroke-width="1"/>
+      <text x="777" y="218" font-family="'Courier New', monospace" font-size="9.5" fill="#4466AA" text-anchor="middle">Redis</text>
+
+      <rect x="818" y="204" width="58" height="20" rx="3" fill="none" stroke="#1A2A50" stroke-width="1"/>
+      <text x="847" y="218" font-family="'Courier New', monospace" font-size="9.5" fill="#4466AA" text-anchor="middle">AWS</text>
+
+      <rect x="886" y="204" width="68" height="20" rx="3" fill="none" stroke="#1A2A50" stroke-width="1"/>
+      <text x="920" y="218" font-family="'Courier New', monospace" font-size="9.5" fill="#4466AA" text-anchor="middle">Tauri</text>
+
+      <!-- ═══════════════════════════════════════════════ -->
+      <!-- TICKER / DATA STREAM (bottom strip)              -->
+      <!-- ═══════════════════════════════════════════════ -->
+      <rect x="0" y="238" width="1200" height="1" fill="#0033AA" opacity="0.4"/>
+      <rect x="0" y="238" width="1200" height="30" fill="#020510" opacity="0.7"/>
+      <clipPath id="tickerClip">
+        <rect x="60" y="238" width="1080" height="30"/>
+      </clipPath>
+      <g clip-path="url(#tickerClip)">
+        <text class="ticker-text" y="258" font-family="'Courier New', monospace" font-size="9" fill="#1A3A66" letter-spacing="2">
+          <tspan>AION ∞ · REVIVE-OS · RAJORA-SLM · HOPESENSE-AI · OPENLEARN-AI · WICKERINDIA · FINSERVE2INDIA · AGENTIC-AI · LANGGRAPH · FASTAPI · POSTGRESQL · REDIS · RABBITMQ · KUBERNETES · AWS · DOCKER · VLLM · QDRANT · FAISS · BM25 · TAURI · RAZORPAY · STRIPE · N8N · PLAYWRIGHT · TWILIO · &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AION ∞ · REVIVE-OS · RAJORA-SLM · HOPESENSE-AI · OPENLEARN-AI · WICKERINDIA · FINSERVE2INDIA · AGENTIC-AI · LANGGRAPH · FASTAPI · POSTGRESQL · REDIS · RABBITMQ · KUBERNETES · AWS · DOCKER · VLLM · QDRANT · FAISS · BM25 · TAURI · RAZORPAY · STRIPE · N8N · PLAYWRIGHT · TWILIO ·</tspan>
+        </text>
+      </g>
+      <rect x="0" y="267" width="1200" height="1" fill="#0033AA" opacity="0.3"/>
+
+      <!-- ═══════════════════════════════════════════════ -->
+      <!-- DOMAIN LABEL                                     -->
+      <!-- ═══════════════════════════════════════════════ -->
+      <text x="600" y="275" font-family="'Courier New', monospace" font-size="9" fill="#1A3366" text-anchor="middle" letter-spacing="2">rajora.live</text>
+
+    </g>
   </a>
 </svg>
