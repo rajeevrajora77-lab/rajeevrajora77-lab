@@ -1,106 +1,219 @@
 <div align="center">
 
 <a href="https://rajora.live">
-  <img src="./banner.svg" alt="Rajora AI — AI infrastructure and products" width="100%" />
+  <img src="./banner.svg" alt="Rajora AI — AI infrastructure, orchestration, and products" width="100%" />
 </a>
 
 # Er. Rajeev Rajora
-### Founder · AI Infrastructure Architect · Full-Stack Builder
+### Founder & AI Infrastructure Architect · Rajora AI
 
-**I build AI systems that move beyond demos — from agent workflows and retrieval to usable products and deployment.**
+**One infrastructure. Multiple AI products. Engineered end to end.**
 
-[**Rajora AI**](https://rajora.live) · [**Email**](mailto:rajeev@rajora.live) · [**GitHub Repositories**](https://github.com/rajeevrajora77-lab?tab=repositories)
+Building across **agentic AI · model orchestration · retrieval systems · automation · full-stack products · cloud infrastructure**
 
-*One infrastructure. Multiple products. Practical AI.*
+[🌐 Rajora AI](https://rajora.live) · [🧠 AION](https://rajora.co.in/) · [🛠️ Tool Guide](https://tools.guide.rajora.live/) · [📦 Repositories](https://github.com/rajeevrajora77-lab?tab=repositories) · [✉️ Contact](mailto:rajeev@rajora.live)
 
 </div>
 
 ---
 
-## About
+## Engineering thesis
 
-I'm the founder of **Rajora AI**, an AI-first technology initiative building intelligent products, automation systems, and digital infrastructure.
+Rajora AI is an AI-focused technology initiative building reusable foundations and domain-specific products. The central idea is simple: **solve recurring infrastructure problems once, then reuse the right components across products**—without pretending every application has identical requirements.
 
-My work spans agentic AI, model integration, hybrid search, developer tooling, learning technology, and full-stack product engineering. I focus on the complete system: the user experience, application architecture, backend services, deployment, and operational reliability.
+The engineering scope spans model integration and routing, agent workflows, retrieval and reranking, API and identity layers, data persistence, automation, user-facing applications, and deployment.
 
-- **Focus:** Agentic systems, AI infrastructure, retrieval, automation, and product engineering
-- **Core tools:** Python, TypeScript, React, FastAPI, Node.js, databases, Docker, and cloud deployment
-- **Approach:** Build useful systems, document the architecture, validate the claims, and improve from real use
+> **Design principle:** the model is one component of the system. Reliability, permissions, retrieval, observability, UX, and operating cost matter just as much.
 
-## Explore the live ecosystem
+## Live product ecosystem
 
-These are useful starting points for exploring Rajora AI. Product availability and features can change; visit each destination for its current status.
-
-| Product | What it is | Link |
+| Product | Focus | Destination |
 |---|---|---|
-| **Rajora AI** | Company and product ecosystem | [rajora.live](https://rajora.live) |
-| **AION** | AI workspace and assistant experiences | [rajora.co.in](https://rajora.co.in/) |
-| **Wicker India** | Commerce and marketplace experience | [wicker.rajora.live](https://wicker.rajora.live/) |
+| **Rajora AI** | Company and AI product ecosystem | [rajora.live](https://rajora.live) |
+| **AION** | AI workspace and assistant experience | [rajora.co.in](https://rajora.co.in/) |
+| **Wicker India** | Digital commerce experience | [wicker.rajora.live](https://wicker.rajora.live/) |
 | **FinServe2India** | Financial-services product discovery | [finserve2india.com](https://www.finserve2india.com/) |
-| **Tool Guide** | Curated AI and developer tools directory | [tools.guide.rajora.live](https://tools.guide.rajora.live/) |
-| **OpenLearn AI** | AI-assisted learning project | [openlearn.rajora.live](https://openlearn.rajora.live/) |
+| **Tool Guide** | AI tools directory | [tools.guide.rajora.live](https://tools.guide.rajora.live/) |
+| **OpenLearn AI** | AI-assisted learning and exam preparation | [openlearn.rajora.live](https://openlearn.rajora.live/) |
 
-## Featured engineering
+*Links are provided as product entry points; current availability and individual features should be confirmed on the destination itself.*
 
-### AION — Agentic AI and automation
-A family of AI experiences focused on conversational interaction, model integrations, and workflow assistance. The wider project work explores tool execution, browser and desktop automation, and connecting AI capabilities to practical tasks.
+## Flagship engineering
 
-**Explore:** [AION web experience](https://rajora.co.in/) · [Public desktop-agent repository](https://github.com/rajeevrajora77-lab/aion-bot)
+### 01 · AION — Agentic intelligence & automation
 
-### Rajora Search — Hybrid retrieval
-A search architecture combining lexical retrieval (BM25), dense vector search (FAISS), and reranking. The goal is to balance exact-term matching with semantic relevance rather than relying on a single retrieval method.
+AION explores AI assistance that connects language-model capabilities to practical workflows, with web and desktop-agent work across the broader project family.
 
-**Explore:** [Rajora AI](https://rajora.live) · [Repositories](https://github.com/rajeevrajora77-lab?tab=repositories)
+**Architecture areas**
+- Model/provider integration and orchestration
+- Tool execution and workflow automation
+- Browser automation with Playwright
+- Desktop interaction and screen capture in the desktop-agent project
+- GitHub and file-system workflows
+- Streaming interaction, application persistence, and safety controls
 
-### OpenLearn AI — Learning technology
-An AI-assisted learning project exploring exam preparation, retrieval-augmented generation, and learning workflows.
+**Technology explored:** Python · LangGraph/LangChain · FastAPI · Playwright · PyAutoGUI · Tauri/Rust · SQLAlchemy · PostgreSQL · Redis
 
-**Explore:** [OpenLearn AI](https://openlearn.rajora.live) · [Repository](https://github.com/rajeevrajora77-lab/openlearn-ai)
+**Explore:** [AION web experience](https://rajora.co.in/) · [AION desktop agent — public repository](https://github.com/rajeevrajora77-lab/aion-bot)
 
-### Wicker India — Digital commerce
-A commerce project combining a customer-facing storefront with backend services and workflow automation.
+### 02 · Rajora Search — Hybrid retrieval & reranking
 
-**Explore:** [Live site](https://wicker.rajora.live/) · [Repository](https://github.com/rajeevrajora77-lab/WickerIndia)
+A retrieval approach designed to combine exact lexical matches with semantic similarity and a reranking stage.
 
-### Revive OS — Workflow orchestration
-A project exploring multi-channel lead reactivation and coordinated workflows across messaging and voice systems. Project scope and deployment status may evolve.
+| Stage | Approach | Purpose |
+|---|---|---|
+| Lexical retrieval | BM25 | Preserve exact terms, identifiers, and keyword relevance |
+| Dense retrieval | FAISS + sentence embeddings | Retrieve semantically related content |
+| Reranking | Cross-encoder | Re-score candidates for query relevance |
 
-**Explore:** [GitHub repositories](https://github.com/rajeevrajora77-lab?tab=repositories)
+The architecture can be extended with answer synthesis, streaming responses, evaluation datasets, and latency/quality measurements. Retrieval quality should be evaluated against representative queries rather than inferred from the component list alone.
 
-## Technology I work with
+**Explore:** [Rajora AI](https://rajora.live) · [Browse repositories](https://github.com/rajeevrajora77-lab?tab=repositories)
 
-**AI & retrieval**  
-Python · LLM integrations · LangGraph · LangChain · RAG · Embeddings · FAISS · BM25 · Qdrant · Hugging Face
+### 03 · Rajora SLM — Fine-tuning & inference infrastructure
 
-**Application engineering**  
-TypeScript · JavaScript · React · Vite · Next.js · Node.js · Express · FastAPI
+An engineering track exploring domain-specific model adaptation and self-managed inference, including parameter-efficient fine-tuning approaches such as LoRA/QLoRA and serving components.
 
-**Data & infrastructure**  
-PostgreSQL · MongoDB · Redis · Docker · GitHub Actions · AWS · Vercel · Render · Kubernetes · Terraform
+**Areas of interest:** model training/evaluation pipelines · inference serving · API gateway · authentication and usage controls · billing boundaries · shared SDKs
 
-*Technology choices vary by project. A badge or tool mention is not a claim that every technology is used in every production system.*
+**Explore:** [SLM fine-tuning repository](https://github.com/rajeevrajora77-lab/rajora-slm-fine-tune-for-revive-os)
 
-## How I approach engineering
+### 04 · Revive OS — Revenue workflow orchestration
 
-- **Start with the user problem.** Architecture should support a useful experience, not become the product by itself.
-- **Prefer clear boundaries.** Keep authentication, data access, model integration, and tool execution explicit and testable.
-- **Treat AI actions carefully.** Use scoped permissions, validation, logging, and appropriate human confirmation for consequential actions.
-- **Make claims verifiable.** Prefer working demos, reproducible tests, architecture notes, and measured results over unsupported performance claims.
-- **Keep improving.** Review reliability, usability, security, accessibility, and operating cost as a system evolves.
+A workflow-orchestration project focused on coordinating lead reactivation across messaging and voice channels. The engineering challenge is not simply sending messages; it is managing state, retries, channel-specific workflows, observability, and safe scale-up.
 
-## Find my work
+**Technology explored:** Python · FastAPI · Redis · RabbitMQ · Twilio · Prometheus/Grafana · Kubernetes/Helm
 
-- [Browse all public repositories](https://github.com/rajeevrajora77-lab?tab=repositories)
-- [View recent activity](https://github.com/rajeevrajora77-lab?tab=overview)
-- [Visit Rajora AI](https://rajora.live)
-- [Contact me](mailto:rajeev@rajora.live)
+**Explore:** [Repository catalogue](https://github.com/rajeevrajora77-lab?tab=repositories)
+
+### 05 · OpenLearn AI — AI-assisted learning
+
+A learning product exploring exam preparation workflows, retrieval-augmented generation, question practice, and learning support.
+
+**Architecture areas:** application UI · API services · retrieval pipeline · vector search · speech interfaces · learner workflows
+
+**Explore:** [OpenLearn AI](https://openlearn.rajora.live/) · [Source repository](https://github.com/rajeevrajora77-lab/openlearn-ai)
+
+### 06 · Wicker India — Commerce & automation
+
+A commerce project bringing together a customer-facing storefront, backend services, and operational automation.
+
+**Architecture areas:** product catalogue and ordering workflows · API/backend services · persistent storage · operational automation · deployment pipelines
+
+**Explore:** [Live storefront](https://wicker.rajora.live/) · [Source repository](https://github.com/rajeevrajora77-lab/WickerIndia)
+
+### 07 · HopeSense AI — Wellbeing analytics
+
+A project exploring AI-assisted signals and analytics related to workplace wellbeing. Health-related predictions require careful validation, privacy safeguards, clear limitations, and human oversight; they should not be presented as clinical diagnoses.
+
+**Explore:** [Public repository catalogue](https://github.com/rajeevrajora77-lab?tab=repositories)
 
 ---
 
+## Platform architecture map
+
+<div align="center">
+  <a href="https://rajora.live">
+    <img src="./architecture.svg" alt="Rajora AI platform architecture diagram" width="100%" />
+  </a>
+  <sub>Conceptual platform map. Individual products can use different components and deployment topologies.</sub>
+</div>
+
+### Core engineering layers
+
+| Layer | Responsibilities | Example technologies |
+|---|---|---|
+| Experience | Web UI, desktop interaction, accessible workflows | React, Vite, Next.js, Tauri |
+| API & identity | API boundaries, authentication, authorization, validation | FastAPI, Node.js, JWT |
+| Agent orchestration | Tool routing, state transitions, model coordination | LangGraph, LangChain |
+| Retrieval | Lexical search, embeddings, vector retrieval, reranking | BM25, FAISS, Qdrant |
+| Models | Hosted model APIs and local/open model experiments | Provider APIs, Hugging Face, Ollama, vLLM |
+| Persistence & cache | Durable data, sessions, task state, caching | PostgreSQL, MongoDB, Redis |
+| Delivery & operations | Containers, deployment, CI/CD, monitoring | Docker, GitHub Actions, cloud platforms |
+
+*These are technologies used or explored across different projects—not a claim that every product runs every component.*
+
+## Security & reliability principles
+
+AI-enabled systems need stronger boundaries than a prompt and an API call. My engineering checklist prioritizes:
+
+- **Least privilege:** scope credentials and tool permissions to the task.
+- **Input and action validation:** validate tool arguments and constrain high-impact actions.
+- **Execution isolation:** sandbox untrusted code and avoid unrestricted shell execution.
+- **Secrets management:** keep credentials out of source control and rotate exposed keys.
+- **Data protection:** minimize sensitive data, enforce access control, and use appropriate encryption.
+- **Observability:** capture actionable logs, errors, latency, and usage without leaking secrets.
+- **Testing:** combine unit/integration tests, dependency scanning, and deployment checks.
+- **Human oversight:** require confirmation for consequential or irreversible operations.
+
+Security features and compliance requirements must be verified per deployment; a checklist is not itself a security audit or certification.
+
+## Technology landscape
+
+<details>
+<summary><strong>AI, agents & retrieval</strong></summary>
+
+Python · LangGraph · LangChain · RAG · Embeddings · Hugging Face Transformers · PEFT/LoRA · QLoRA · Ollama · vLLM · FAISS · BM25 · Cross-encoders · Qdrant · Faster-Whisper · text-to-speech tooling
+
+</details>
+
+<details>
+<summary><strong>Frontend, backend & desktop</strong></summary>
+
+React · TypeScript · JavaScript · Vite · Next.js · Tailwind CSS · Node.js · Express · Python · FastAPI · Tauri · Rust · Playwright
+
+</details>
+
+<details>
+<summary><strong>Data & messaging</strong></summary>
+
+PostgreSQL · MongoDB · Supabase · SQLAlchemy · Alembic · Redis · RabbitMQ · MinIO
+
+</details>
+
+<details>
+<summary><strong>Cloud, DevOps & observability</strong></summary>
+
+AWS · Vercel · Render · Docker · Kubernetes · Helm · Terraform · GitHub Actions · Nginx · Prometheus · Grafana · OpenTelemetry/Jaeger
+
+</details>
+
+<details>
+<summary><strong>Payments, integrations & quality</strong></summary>
+
+Razorpay · Stripe · Twilio · n8n · pytest · mypy · Black · flake8 · Bandit · dependency/CVE scanning
+
+</details>
+
+## Repository index
+
+| Repository | Focus | Link |
+|---|---|---|
+| **aion-bot** | Desktop agent and OS automation | [Source](https://github.com/rajeevrajora77-lab/aion-bot) |
+| **AION-v1** | AI web application | [Source](https://github.com/rajeevrajora77-lab/AION-v1) |
+| **openlearn-ai** | AI learning platform | [Source](https://github.com/rajeevrajora77-lab/openlearn-ai) |
+| **WickerIndia** | Commerce product | [Source](https://github.com/rajeevrajora77-lab/WickerIndia) |
+| **rajora-slm-fine-tune-for-revive-os** | Model adaptation/inference work | [Source](https://github.com/rajeevrajora77-lab/rajora-slm-fine-tune-for-revive-os) |
+| **tool-app** | AI tools directory | [Source](https://github.com/rajeevrajora77-lab/tool-app) |
+| **All public repositories** | Browse the full portfolio | [Open GitHub](https://github.com/rajeevrajora77-lab?tab=repositories) |
+
+Some projects may be private, experimental, or under active development. The public repository list is the source of truth for what can currently be inspected.
+
+## About the builder
+
+**Er. Rajeev Rajora**  
+Founder & AI Infrastructure Architect at Rajora AI
+
+I work across architecture and implementation: shaping the product, connecting AI capabilities to software systems, building backend and frontend experiences, and handling deployment and operational trade-offs.
+
+I am especially interested in the engineering between a model and a useful product: retrieval quality, tool execution, orchestration, system boundaries, reliability, and cost.
+
 <div align="center">
 
-**Built in India. Designed to be useful.**
+### Build something useful.
 
-[Rajora AI](https://rajora.live) · [GitHub](https://github.com/rajeevrajora77-lab) · [Email](mailto:rajeev@rajora.live)
+[**Explore Rajora AI**](https://rajora.live) · [**Browse GitHub**](https://github.com/rajeevrajora77-lab?tab=repositories) · [**Email me**](mailto:rajeev@rajora.live)
+
+*Built in India · AI systems, infrastructure, and products*
 
 </div>
